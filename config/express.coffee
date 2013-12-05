@@ -3,6 +3,7 @@
 # 
 express = require("express")
 mongoStore = require("connect-mongo")(express)
+mongoose = require("mongoose")
 helpers = require("view-helpers")
 pkg = require("../package")
 flash = require("connect-flash")
@@ -42,8 +43,11 @@ module.exports = (app, config, passport) ->
     app.use express.cookieParser()
     app.use express.session(
       secret: pkg.name
+      cookie:
+        maxAge: new Date(Date.now() + 3600000 * 24 * 365 * 10)
       store: new mongoStore(
-        url: config.db
+        #url: config.db
+        db: mongoose.connection.db
         collection: "sessions"
       )
     )

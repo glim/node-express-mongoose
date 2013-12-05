@@ -17,8 +17,8 @@ fs.readdirSync(__dirname + "/app/models").forEach (file) ->
 
 
 # Bootstrap passport config
-require("./config/passport") passport, config
 app = express()
+require("./config/passport") passport, config 
 
 # Bootstrap application settings
 require("./config/express") app, config, passport

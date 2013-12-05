@@ -4,33 +4,31 @@
 # 
 mongoose = require("mongoose")
 Schema = mongoose.Schema
-userPlugin = require("mongoose-user")
+#userPlugin = require("mongoose-user")
 
 ###
 User schema
 ###
 UserSchema = new Schema(
-  name:
+  twitterId:
     type: String
     default: ""
 
-  email:
+  twitterToken:
     type: String
     default: ""
 
-  hashed_password:
+  twitterSecret:
     type: String
     default: ""
-
-  salt:
-    type: String
-    default: ""
+  
+  twitterProfile: {}
 )
 
 ###
 User plugin
 ###
-UserSchema.plugin userPlugin, {}
+#UserSchema.plugin userPlugin, {}
 
 ###
 Add your

@@ -3,7 +3,8 @@
 # * Module dependencies.
 # 
 mongoose = require("mongoose")
-LocalStrategy = require("passport-local").Strategy
+#LocalStrategy = require("passport-local").Strategy
+TwitterStrategy = require('passport-twitter').Strategy
 User = mongoose.model("User")
 
 ###
@@ -21,26 +22,21 @@ module.exports = (passport, config) ->
     , (err, user) ->
       done err, user
 
+  passport.use new TwitterStrategy(
+    consumerKey: "BwIBaGqlHBSuwghEiHHZg"
+    consumerSecret: "pe1XtaM0GAppeXfSKcGbCiJCDIVyKysklFFnrzA"
+    callbackURL: "http://vasdf.jameson.cc/auth/twitter/callback"
+  , (token, tokenSecret, profile, done) ->
+    #console.log profile
+    User.findOne {twitterId: profile.id}, (err,user) ->
+      return done(err) if err
 
-  
-  # use local strategy
-  passport.use new LocalStrategy(
-    usernameField: "email"
-    passwordField: "password"
-  , (email, password, done) ->
-    options = criteria:
-      email: email
-
-    User.load options, (err, user) ->
-      return done(err)  if err
-      unless user
-        return done(null, false,
-          message: "Unknown user"
-        )
-      unless user.authenticate(password)
-        return done(null, false,
-          message: "Invalid password"
-        )
-      done null, user
-
+      if user
+        done null, user
+      else
+        console.log 'creating user'
+        user = new User twitterId: profile.id, twitterToken: token, twitterSecret: tokenSecret, twitterProfile: profile
+        user.save (err) ->
+          done err, user
+    return
   )
