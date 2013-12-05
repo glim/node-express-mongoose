@@ -1,17 +1,17 @@
 {
-  "name": "node-express-mongoose",
-  "description": "A boilerplate application for express mongoose",
+  "name": "node-express-mongoose-coffee",
+  "description": "A boilerplate application for express mongoose coffee-script",
   "version": "0.0.1",
   "author": {
-    "name": "Madhusudhan Srinivasa",
-    "email": "me@madhums.me"
+    "name": "Jameson Holden",
+    "email": "me@jameson.cc"
   },
   "engines": {
     "node": "0.10.x",
     "npm": "1.2.x"
   },
   "scripts": {
-    "start": "NODE_PATH=./app/controllers NODE_ENV=development ./node_modules/.bin/nodemon server.js",
+    "start": "NODE_PATH=./app/controllers NODE_ENV=development ./node_modules/.bin/nodemon server.coffee",
     "test": "make test"
   },
   "dependencies": {
@@ -33,9 +33,5 @@
     "mocha": "latest",
     "should": "latest",
     "supertest": "latest"
-  },
-  "keywords": [
-    "mvc",
-    "boilerplate"
-  ]
+  }
 }
